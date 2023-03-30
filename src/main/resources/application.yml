@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    open-in-view: false
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/questiondb
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
