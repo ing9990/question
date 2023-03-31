@@ -1,4 +1,4 @@
-package com.question.aop;
+package com.question.infra.in.aop.logging;
 
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class EndpointLoggingAspect {
 
     }
 
-    @Around(value = "com.question.aop.EndpointLoggingAspect.onRequest()")
+    @Around(value = "com.question.infra.in.aop.logging.EndpointLoggingAspect.onRequest()")
     public Object doLogging(ProceedingJoinPoint pjp) throws Throwable {
         HttpServletRequest request =
                 ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();

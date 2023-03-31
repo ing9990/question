@@ -1,4 +1,4 @@
-package com.question.config;
+package com.question.infra.out;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
