@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -13,14 +14,23 @@ import java.util.UUID;
 @Table(name = "user")
 public class User extends BaseTimeEntity {
 
+    public static final Pattern USERNAME_PATTERN = Pattern.compile("^[A-Za-z]{5,}$");
+    public static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$");
+
     @Id
     private String userId;
 
-    @Column
+    @Column(name = "email", nullable = false, updatable = false)
+    private String email;
+
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "profile_image_url", length = 1000)
+    private String profileImageUrl;
 
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
@@ -47,17 +57,26 @@ public class User extends BaseTimeEntity {
         this.password = password;
     }
 
-    public User(String username, String password) {
-        if (!StringUtils.hasText(username)) {
-            throw new IllegalArgumentException("username cannot be null");
-        }
-
-        if (!StringUtils.hasText(password)) {
-            throw new IllegalArgumentException("paassword cannot be null");
-        }
+    public User(String username, String email, String password, String profileImageUrl) {
+        validateEmail(email);
+        validateUsername(username);
 
         this.userId = UUID.randomUUID().toString();
+        this.email = email;
         this.username = username;
+        this.profileImageUrl = profileImageUrl;
         this.password = password;
+    }
+
+    private void validateUsername(String username) {
+
+    }
+
+    private void validateEmail(String email) {
+
+    }
+
+    private void validateProfileImageUrl(String profileImageUrl) {
+
     }
 }

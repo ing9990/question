@@ -21,7 +21,7 @@ public class Question extends BaseTimeEntity {
     @JoinColumn(name = "question_author", nullable = false)
     private User author;
 
-    @Column(name = "question_title", nullable = false, length = 30)
+    @Column(name = "question_title", nullable = false, length = 30, updatable = false)
     private String title;
 
     @Column(name = "question_detail", nullable = false, length = 255)
