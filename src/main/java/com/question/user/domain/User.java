@@ -18,6 +18,7 @@ public class User extends BaseTimeEntity {
     public static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$");
 
     @Id
+    @Column(name = "user_id", nullable = false)
     private String userId;
 
     @Column(name = "email", nullable = false, updatable = false)
@@ -33,6 +34,7 @@ public class User extends BaseTimeEntity {
     private String profileImageUrl;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_status", nullable = false)
     private UserStatus userStatus;
 
     public void active() {
