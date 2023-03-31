@@ -14,3 +14,11 @@ spring:
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+cors:
+  allow-origins:
+    urls:
+      http://localhost:3000
+
+    method:
+      GET, POST, PUT, DELETE, PATCH
