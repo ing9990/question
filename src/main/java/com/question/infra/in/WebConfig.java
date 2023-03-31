@@ -1,7 +1,10 @@
 package com.question.infra.in;
 
+import com.question.auth.application.AuthService;
+import com.question.infra.in.resolver.CurrentUserResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -19,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${cors.allow-origins.method}")
     private List<String> allowOriginMethods;
 
-    private final HandlerMethodArgumentResolver currentUserArgumentResovler;
+    private final CurrentUserResolver currentUserArgumentResovler;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
