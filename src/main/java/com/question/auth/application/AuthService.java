@@ -2,6 +2,7 @@ package com.question.auth.application;
 
 import com.question.auth.domain.AuthUser;
 import com.question.auth.domain.JwtTokenRepository;
+import com.question.user.event.UserSavedEvent;
 import com.question.auth.io.response.AccessTokenAndRefreshTokenResponse;
 import com.question.user.domain.User;
 import com.question.user.domain.UserRepository;
@@ -36,6 +37,8 @@ public class AuthService {
     }
 
     private User saveUser(final User user) {
+        var savedUser = userRepository.save(user);
+        publisher.publishEvent(new UserSavedEvent(this, savedUser.getUserId()));
         return userRepository.save(user);
     }
 }

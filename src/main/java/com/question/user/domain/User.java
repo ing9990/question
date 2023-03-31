@@ -45,17 +45,12 @@ public class User extends BaseTimeEntity {
         this.userStatus = UserStatus.INACTIVE;
     }
 
-    public void updateUsername(String username) {
-        if (!StringUtils.hasText(username)) {
-            throw new IllegalArgumentException("username cannot be null");
-        }
+    public void updateUsername(final String username) {
+        validateUsername(username);
         this.username = username;
     }
 
-    public void updatePassword(String password) {
-        if (!StringUtils.hasText(username)) {
-            throw new IllegalArgumentException("username cannot be null");
-        }
+    public void updatePassword(final String password) {
         this.password = password;
     }
 
@@ -82,15 +77,15 @@ public class User extends BaseTimeEntity {
         this.profileImageUrl = profileImageUrl;
     }
 
-    private void validateUsername(String username) {
-
+    private void validateUsername(final String username) {
+        if (!USERNAME_PATTERN.matcher(username).find()) {
+            throw new IllegalArgumentException("이름은 5글자 보다 적을 수 없습니다.");
+        }
     }
 
-    private void validateEmail(String email) {
-
-    }
-
-    private void validateProfileImageUrl(String profileImageUrl) {
-
+    private void validateEmail(final String email) {
+        if (!EMAIL_PATTERN.matcher(email).find()) {
+            throw new IllegalArgumentException("이메일 형식이 아닙니다.");
+        }
     }
 }

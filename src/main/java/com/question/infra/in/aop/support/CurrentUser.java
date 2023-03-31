@@ -1,4 +1,4 @@
-package com.question.infra.in.aop.CurrentUser;
+package com.question.infra.in.aop.support;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
