@@ -1,6 +1,8 @@
 package com.question.question.application;
 
-import com.question.commons.error.exception.UserNotFoundException;
+import com.question.question.io.response.QuestionResponse;
+import com.question.question.domain.QuestionNotFoundException;
+import com.question.user.domain.UserNotFoundException;
 import com.question.question.domain.Question;
 import com.question.question.domain.QuestionRepository;
 import com.question.user.domain.UserRepository;
@@ -22,5 +24,10 @@ public class QuestionService {
                 .orElseThrow(UserNotFoundException::new);
 
         questionRepository.save(new Question(title, detail, user));
+    }
+
+    public QuestionResponse getQuestion(final Long questionId) {
+         return QuestionResponse.of(questionRepository.findById(questionId)
+                 .orElseThrow(QuestionNotFoundException::new));
     }
 }
