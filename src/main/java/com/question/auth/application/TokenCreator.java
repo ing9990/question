@@ -1,6 +1,6 @@
 package com.question.auth.application;
 
-import com.question.auth.domain.AuthToken;
+import com.question.auth.io.response.AuthToken;
 
 public interface TokenCreator {
     AuthToken createAuthToken(final String userId);

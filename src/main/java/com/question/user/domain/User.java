@@ -59,7 +59,11 @@ public class User extends BaseTimeEntity {
         this.password = password;
     }
 
-    public User(String username, String email, String password, String profileImageUrl) {
+    public User(final String username,
+                final String email,
+                final String password,
+                final String profileImageUrl) {
+
         validateEmail(email);
         validateUsername(username);
 
@@ -68,6 +72,14 @@ public class User extends BaseTimeEntity {
         this.username = username;
         this.profileImageUrl = profileImageUrl;
         this.password = password;
+    }
+
+    public User(final String username,
+                final String email,
+                final String profileImageUrl) {
+        this.username = username;
+        this.email = email;
+        this.profileImageUrl = profileImageUrl;
     }
 
     private void validateUsername(String username) {

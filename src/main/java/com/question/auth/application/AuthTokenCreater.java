@@ -1,6 +1,6 @@
 package com.question.auth.application;
 
-import com.question.auth.domain.AuthToken;
+import com.question.auth.io.response.AuthToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
