@@ -10,7 +10,7 @@ public class AuthTokenCreater implements TokenCreator {
 
     private final TokenProvider tokenProvider;
 
-    public AuthToken createAuthToken(final String userId) {
+    public Auth createAuthToken(final String userId) {
         return new AuthToken(tokenProvider.createAccessToken(userId), tokenProvider.createRefreshToken(userId));
     }
 

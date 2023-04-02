@@ -1,7 +1,7 @@
 package com.question.infra.in.resolver;
 
 import com.question.auth.application.AuthService;
-import com.question.infra.in.aop.CurrentUser.CurrentUser;
+import com.question.infra.in.aop.support.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
