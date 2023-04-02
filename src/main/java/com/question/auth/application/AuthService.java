@@ -19,7 +19,6 @@ public class AuthService {
     private final UserRepository userRepository;
     private final JwtTokenRepository jwtTokenRepository;
     private final ApplicationEventPublisher publisher;
-    private final TokenCreator tokenCreator;
 
     @Transactional
     public AccessTokenAndRefreshTokenResponse generateAccessTokenAndRefreshToken(final AuthUser authUser) {
