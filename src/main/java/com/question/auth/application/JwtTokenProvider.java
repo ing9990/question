@@ -1,7 +1,7 @@
 package com.question.auth.application;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.question.auth.domain.InvalidTokenException;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -33,11 +33,6 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     @Override
-    public String extractPayloadFromAccessToken(String payload) {
-        return null;
-    }
-
-    @Override
     public String createAccessToken(String payload) {
         return createToken(payload, validityMS, key);
     }
@@ -45,6 +40,32 @@ public class JwtTokenProvider implements TokenProvider {
     @Override
     public String createRefreshToken(String payload) {
         return createToken(payload, refreshValidityMS, refreshKey);
+    }
+
+    @Override
+    public String getPayload(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    @Override
+    public void validateToken(String token) {
+        try {
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+
+            claims.getBody()
+                    .getExpiration()
+                    .before(new Date());
+        }catch(final JwtException | IllegalArgumentException e){
+            throw new InvalidTokenException("권한이 없습니다.");
+        }
     }
 
 
