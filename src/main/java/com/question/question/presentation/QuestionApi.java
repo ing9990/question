@@ -1,5 +1,6 @@
 package com.question.question.presentation;
 
+import com.question.infra.in.aop.support.CurrentUser;
 import com.question.question.application.QuestionService;
 import com.question.question.io.request.CreateQuestionRequest;
 import com.question.question.io.response.QuestionResponse;
@@ -25,17 +26,16 @@ public class QuestionApi {
                 .body(questionService.getQuestion(questionId));
     }
 
+    @CurrentUser
     @PostMapping
-        //@LoginRequired
-        // LoginRequired 에서 로그인 정보 확인과 계정이 활동상태인지 체크
     ResponseEntity<Void> makeQuestion(
             @RequestBody @Valid CreateQuestionRequest createQuestionRequest,
             String userId
     ) {
         questionService.saveQuestion(
+                userId,
                 createQuestionRequest.getTitle(),
-                createQuestionRequest.getDetail(),
-                userId
+                createQuestionRequest.getDetail()
         );
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

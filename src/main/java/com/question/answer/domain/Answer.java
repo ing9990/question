@@ -37,6 +37,7 @@ public class Answer extends BaseTimeEntity {
     @Column(name = "answer_content", nullable = false)
     private String content;
 
+
     public Answer(Question question, User answerer, String title, String content) {
         validateQuestion(question);
         validateAnswerer(answerer);

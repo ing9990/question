@@ -2,7 +2,7 @@ package com.question.question.domain;
 
 public class QuestionNotFoundException extends RuntimeException {
     public QuestionNotFoundException() {
-        super();
+        this("질문글을 찾을 수 없습니다.");
     }
 
     public QuestionNotFoundException(String message) {

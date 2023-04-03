@@ -19,7 +19,7 @@ public class QuestionService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void saveQuestion(final String title, final String detail, final String userId) {
+    public void saveQuestion(final String userId, final String title, final String detail) {
         var user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
@@ -27,7 +27,7 @@ public class QuestionService {
     }
 
     public QuestionResponse getQuestion(final Long questionId) {
-         return QuestionResponse.of(questionRepository.findById(questionId)
-                 .orElseThrow(QuestionNotFoundException::new));
+        return QuestionResponse.of(questionRepository.findById(questionId)
+                .orElseThrow(QuestionNotFoundException::new));
     }
 }
