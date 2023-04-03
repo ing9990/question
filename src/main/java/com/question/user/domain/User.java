@@ -79,7 +79,7 @@ public class User extends BaseTimeEntity {
 
     private void validateUsername(final String username) {
         if (!USERNAME_PATTERN.matcher(username).find()) {
-            throw new IllegalArgumentException("이름은 5글자 보다 적을 수 없습니다.");
+            throw new IllegalArgumentException("이름은 특수문자가 포함되거나 5글자 보다 적을 수 없습니다.");
         }
     }
 

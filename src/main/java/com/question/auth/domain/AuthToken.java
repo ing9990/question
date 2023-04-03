@@ -2,12 +2,14 @@ package com.question.auth.domain;
 
 import com.question.user.domain.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "auth_token")
 public class AuthToken {
 
