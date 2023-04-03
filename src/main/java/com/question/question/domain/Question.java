@@ -42,5 +42,6 @@ public class Question extends BaseTimeEntity {
         this.title = title;
         this.detail = detail;
         this.author = author;
+        this.answers = new ArrayList<>();
     }
 }
