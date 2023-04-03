@@ -1,10 +1,13 @@
 package com.question.question.domain;
 
+import com.question.answer.domain.Answer;
 import com.question.commons.BaseTimeEntity;
 import com.question.user.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,6 +29,9 @@ public class Question extends BaseTimeEntity {
 
     @Column(name = "question_detail", nullable = false, length = 255)
     private String detail;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answers = new ArrayList<>();
 
     @Builder
     public Question(

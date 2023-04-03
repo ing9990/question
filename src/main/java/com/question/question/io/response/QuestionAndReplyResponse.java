@@ -1,6 +1,6 @@
 package com.question.question.io.response;
 
-import com.question.reply.io.response.QuestionReplyResponse;
+import com.question.answer.io.response.QuestionReplyResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

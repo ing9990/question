@@ -1,5 +1,6 @@
 package com.question.auth.domain;
 
+import com.question.commons.BaseTimeEntity;
 import com.question.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Entity
 @NoArgsConstructor
 @Table(name = "auth_token")
-public class AuthToken {
+public class AuthToken extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,4 +1,4 @@
-package com.question.reply.io.response;
+package com.question.answer.io.response;
 
 import com.question.user.io.response.UserResponse;
 import lombok.AllArgsConstructor;
