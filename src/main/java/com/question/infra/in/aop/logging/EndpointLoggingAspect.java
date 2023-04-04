@@ -28,7 +28,7 @@ public class EndpointLoggingAspect {
                 .collect(Collectors.joining(", "));
     }
 
-    @Pointcut("within(com.*.presentation..*)")
+    @Pointcut("within(com.question.*.presentation..*)")
     public void onRequest() {
 
     }
