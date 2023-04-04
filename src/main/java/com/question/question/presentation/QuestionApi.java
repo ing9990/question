@@ -1,17 +1,22 @@
 package com.question.question.presentation;
 
 import com.question.answer.io.response.QuestionAnswerResponse;
+import com.question.commons.BaseResponse;
 import com.question.infra.in.aop.support.CurrentUser;
 import com.question.question.application.QuestionService;
+import com.question.question.domain.Question;
 import com.question.question.io.request.CreateQuestionRequest;
 import com.question.question.io.response.QuestionAndAnswersResponse;
 import com.question.question.io.response.QuestionResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/questions")
@@ -20,6 +25,14 @@ public class QuestionApi {
 
     private final QuestionService questionService;
 
+    @GetMapping
+    public ResponseEntity<BaseResponse> getQuestionsByPage(
+            @PageableDefault(size = 30) Pageable pageable
+    ) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(BaseResponse.ok(questionService.getQuestions(pageable), "질문글 목록을 조회합니다."));
+    }
+
     /**
      * 질문글의 제목과 내용을 리턴합니다.
      *
@@ -27,11 +40,11 @@ public class QuestionApi {
      * @return
      */
     @GetMapping("/{questionId}")
-    public ResponseEntity<QuestionResponse> getQuestion(
+    public ResponseEntity<BaseResponse> getQuestion(
             @PathVariable Long questionId
     ) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(questionService.getQuestion(questionId));
+                .body(BaseResponse.ok(questionService.getQuestion(questionId), "질문글의 제목과 내용을 응답합니다."));
     }
 
     /**
@@ -41,11 +54,11 @@ public class QuestionApi {
      * @return
      */
     @GetMapping("/{questionId}/answers")
-    public ResponseEntity<QuestionAndAnswersResponse> getQuestionAndAnswers(
+    public ResponseEntity<BaseResponse> getQuestionAndAnswers(
             @PathVariable Long questionId
     ) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(questionService.getQuestionAndAnswers(questionId));
+                .body(BaseResponse.ok(questionService.getQuestionAndAnswers(questionId), "질문과 답변글을 모두 응답합니다."));
     }
 
     /**
@@ -55,11 +68,10 @@ public class QuestionApi {
      * @param userId
      * @return
      */
-    @CurrentUser
     @PostMapping
     ResponseEntity<Void> makeQuestion(
             @RequestBody @Valid CreateQuestionRequest createQuestionRequest,
-            String userId
+            @CurrentUser String userId
     ) {
         questionService.saveQuestion(
                 userId,
