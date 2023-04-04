@@ -1,5 +1,6 @@
 package com.question.commons.error.global;
 
+import com.question.auth.domain.InvalidAuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,10 +26,20 @@ public class RequestArgumentNotValidExceptionHandler {
                         .collect(Collectors.toList()), HttpStatus.BAD_REQUEST));
     }
 
+    @ExceptionHandler(InvalidAuthenticationException.class)
+    public ResponseEntity<ErrorResponse> handlerInvalidAuthentication(
+            final Exception exception
+    ) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ErrorResponse.of(new Error(exception.getMessage())));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handlerUnexpectedException(
             final Exception exception
     ) {
+        System.out.println(exception.getMessage());
+
         Error unExpectedError = new Error("예상하지 못한 서버 에러가 발생했습니다.");
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -8,8 +8,12 @@ import com.question.question.domain.Question;
 import com.question.question.domain.QuestionRepository;
 import com.question.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,5 +43,11 @@ public class QuestionService {
                 .orElseThrow(QuestionNotFoundException::new);
 
         return QuestionAndAnswersResponse.of(question);
+    }
+
+    public List<QuestionResponse> getQuestions(Pageable pageable) {
+        return questionRepository.findAll(pageable)
+                .stream().map(QuestionResponse::of)
+                .collect(Collectors.toList());
     }
 }

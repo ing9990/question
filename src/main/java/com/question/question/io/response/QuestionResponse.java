@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class QuestionResponse {
     private Long questionId;
+    private String authorUsername;
     private String title;
     private String detail;
 
@@ -19,6 +20,7 @@ public class QuestionResponse {
         return QuestionResponse.builder()
                 .questionId(question.getQuestionId())
                 .title(question.getTitle())
+                .authorUsername(question.getAuthor().getUsername())
                 .detail(question.getDetail())
                 .build();
     }

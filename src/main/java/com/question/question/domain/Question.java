@@ -21,7 +21,7 @@ public class Question extends BaseTimeEntity {
     @Column(name = "question_id")
     private Long questionId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_author", nullable = false)
     private User author;
 
@@ -76,7 +76,7 @@ public class Question extends BaseTimeEntity {
     }
 
     private void validateTitle(String title) {
-        if ((!StringUtils.hasText(detail)) || detail.length() < 3) {
+        if ((!StringUtils.hasText(title)) || title.length() < 3) {
             throw new IllegalArgumentException("질문글의 제목은 최소 3글자 이상입니다.");
         }
     }
