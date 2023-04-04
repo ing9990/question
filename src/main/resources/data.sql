@@ -9,6 +9,9 @@ values ('userid2', now(), now(), 'test2@test.com', 'password2', 'image2', 'ACTIV
 insert into user(user_id, created_time, modified_time, email, password, profile_image_url, user_status, username)
 values ('userid3', now(), now(), 'test3@test.com', 'password3', 'image3', 'ACTIVE', 'testuser3');
 
+insert into user(user_id, created_time, modified_time, email, password, profile_image_url, user_status, username)
+values ('userid4', now(), now(), 'test4@test.com', '$2a$10$omBpft4efLF7SYaQ7XHuruBcw8KDUlWcsu3fD7ndKsfBUIv22JxVS', 'image4', 'ACTIVE', 'testuser4');
+
 insert into question(created_time, modified_time, question_detail, question_title, question_author)
 values (now(), now(), 'TCP와 UDP의 차이를 알려주세요!!', 'TCP와 UDP의 차이', 'userid1');
 
