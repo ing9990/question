@@ -4,7 +4,6 @@ import com.question.answer.domain.Answer;
 import com.question.answer.domain.AnswerRepository;
 import com.question.question.domain.QuestionNotFoundException;
 import com.question.question.domain.QuestionRepository;
-import com.question.user.domain.User;
 import com.question.user.domain.UserNotFoundException;
 import com.question.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,7 @@ public class AnswerService {
                 .orElseThrow(QuestionNotFoundException::new);
 
         var savedAnswer = answerRepository.save(new Answer(question, answerer, answerTitle, answerContent));
-        
+
         question.addAnswer(savedAnswer);
     }
 

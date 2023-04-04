@@ -23,11 +23,11 @@ public class Answer extends BaseTimeEntity {
     @Column(name = "answer_id")
     private Long answerId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "answerer_id", nullable = false)
     private User answerer;
 

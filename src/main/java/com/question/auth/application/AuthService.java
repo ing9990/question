@@ -19,12 +19,18 @@ public class AuthService {
     private final UserRepository userRepository;
     private final JwtTokenRepository jwtTokenRepository;
     private final ApplicationEventPublisher publisher;
+    private final TokenProvider provider;
 
     @Transactional
     public AccessTokenAndRefreshTokenResponse generateAccessTokenAndRefreshToken(final AuthUser authUser) {
         var foundUser = findUser(authUser);
 
         return null;
+    }
+
+    @Transactional(readOnly = true)
+    public String getUserIdFromToken(final String token) {
+        return provider.getPayload(token);
     }
 
     private User findUser(AuthUser authUser) {

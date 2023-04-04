@@ -1,5 +1,6 @@
 package com.question.question.application;
 
+import com.question.question.io.response.QuestionAndAnswersResponse;
 import com.question.question.io.response.QuestionResponse;
 import com.question.question.domain.QuestionNotFoundException;
 import com.question.user.domain.UserNotFoundException;
@@ -29,5 +30,14 @@ public class QuestionService {
     public QuestionResponse getQuestion(final Long questionId) {
         return QuestionResponse.of(questionRepository.findById(questionId)
                 .orElseThrow(QuestionNotFoundException::new));
+    }
+
+    public QuestionAndAnswersResponse getQuestionAndAnswers(
+            final Long questionId
+    ) {
+        var question = questionRepository.findById(questionId)
+                .orElseThrow(QuestionNotFoundException::new);
+
+        return QuestionAndAnswersResponse.of(question);
     }
 }

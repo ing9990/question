@@ -1,13 +1,13 @@
 package com.question.user.presentation;
 
-import com.question.auth.io.LoginUser;
+import com.question.infra.in.aop.support.CurrentUser;
 import com.question.user.application.UserService;
+import com.question.user.io.request.SignUpRequest;
 import com.question.user.io.request.UserUpdateRequest;
 import com.question.user.io.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,16 +19,35 @@ public class UserApi {
 
     private final UserService userService;
 
+    @CurrentUser
     @GetMapping
-    public ResponseEntity<UserResponse> findMe(@AuthenticationPrincipal final LoginUser loginUser) {
+    public ResponseEntity<UserResponse> findMe(final String userId) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(userService.findById(loginUser.getUserId()));
+                .body(userService.findById(userId));
     }
 
+
+    @PostMapping
+    public ResponseEntity<Void> singUp(
+            @RequestBody @Valid SignUpRequest signUpRequest
+    ) {
+        userService.save(
+                signUpRequest.getUsername(),
+                signUpRequest.getEmail(),
+                signUpRequest.getPassword(),
+                signUpRequest.getProfileImageUrl()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @CurrentUser
     @PatchMapping
-    public ResponseEntity<Void> updateUsername(@AuthenticationPrincipal final LoginUser loginUser,
-                                               @Valid @RequestBody final UserUpdateRequest request) {
-        userService.updateUsername(loginUser.getUserId(), request);
+    public ResponseEntity<Void> updateUsername(
+            @Valid @RequestBody final UserUpdateRequest request,
+            final String userId
+    ) {
+        userService.updateUsername(userId, request);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

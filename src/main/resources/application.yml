@@ -3,17 +3,26 @@ server:
 
 spring:
   jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    open-in-view: false
+    properties:
+      hibernate:
+        format-sql: true
 
   datasource:
     url: jdbc:mysql://localhost:3306/questiondb
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
 
 cors:
   allow-origins:
@@ -33,3 +42,6 @@ security:
       expire-length: 25920000000
       secret-key: UXVlc3Rpb25TZXJ2aWNlQmFzZTY0RGVjb2RlS2V5UmVmcmVzaA==
 
+logging:
+  level:
+    org.hibernate.SQL: DEBUG

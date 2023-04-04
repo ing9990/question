@@ -1,5 +1,6 @@
 package com.question.infra.in.resolver;
 
+import com.question.auth.domain.InvalidAuthenticationException;
 import com.question.auth.application.AuthService;
 import com.question.infra.in.aop.support.CurrentUser;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,10 @@ public class CurrentUserResolver implements HandlerMethodArgumentResolver {
 
         String authorization = webRequest.getHeader(AUTHORIZTION_HEADER_NAME);
 
+        if (authorization == null || authorization.isEmpty()) {
+            throw new InvalidAuthenticationException();
+        }
 
-        return null;
+        return authService.getUserIdFromToken(authorization);
     }
 }
