@@ -1,12 +1,11 @@
 package com.question.user.application;
 
-import com.question.user.domain.DuplicateUsernameException;
-import com.question.user.domain.User;
-import com.question.user.domain.UserNotFoundException;
-import com.question.user.domain.UserRepository;
+import com.question.user.domain.*;
+import com.question.user.event.UserSavedEvent;
 import com.question.user.io.response.UserResponse;
 import com.question.user.io.request.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class UserService {
 
+    private final ApplicationEventPublisher publisher;
     private final PasswordEncoder encoder;
     private final UserRepository userRepository;
 
@@ -36,7 +36,9 @@ public class UserService {
 
     @Transactional
     public void save(String username, String email, String password, String profileImageUrl) {
-        userRepository.save(new User(username, email, encoder.encode(password), profileImageUrl));
+        var savedUser = userRepository.save(new User(username, email, encoder.encode(password), profileImageUrl));
+        
+        publisher.publishEvent(new UserSavedEvent(this, savedUser.getUserId()));
     }
 
     private void hasSameUsername(String username) {

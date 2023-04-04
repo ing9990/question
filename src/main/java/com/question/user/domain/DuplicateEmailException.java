@@ -1,4 +1,4 @@
-package com.question.user.application;
+package com.question.user.domain;
 
 public class DuplicateEmailException extends RuntimeException {
 
