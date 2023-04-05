@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/{questionId}/answer")
+@RequestMapping("/api/questions/{questionId}/answers")
 @RequiredArgsConstructor
 public class AnswerApi {
 
     private final AnswerService answerService;
 
-    @CurrentUser
     @PostMapping
     ResponseEntity<Void> answer(
             @PathVariable Long questionId,
             @RequestBody @Valid PostAnswerRequest request,
-            String answererId
+            @CurrentUser String answererId
     ) {
         answerService.addAnswer(answererId, questionId, request.getAnswerTitle(), request.getAnswerContent());
 

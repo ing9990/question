@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class QuestionAnswerResponse {
-    private UserResponse answerer;
+    private String answererId;
+    private String answererUsername;
     private String title;
     private String content;
 
@@ -20,7 +21,8 @@ public class QuestionAnswerResponse {
             final Answer answer
     ) {
         return QuestionAnswerResponse.builder()
-                .answerer(UserResponse.of(answer.getAnswerer()))
+                .answererId(answer.getAnswerer().getUserId())
+                .answererUsername(answer.getAnswerer().getUsername())
                 .title(answer.getTitle())
                 .content(answer.getContent())
                 .build();

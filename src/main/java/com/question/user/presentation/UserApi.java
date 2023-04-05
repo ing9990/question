@@ -19,7 +19,6 @@ import javax.validation.Valid;
 public class UserApi {
 
     private final UserService userService;
-    private final UserRepository userRepository;
 
     @GetMapping
     public ResponseEntity<UserResponse> findMe(@CurrentUser final String userId) {
