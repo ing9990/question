@@ -80,4 +80,8 @@ public class Question extends BaseTimeEntity {
             throw new IllegalArgumentException("질문글의 제목은 최소 3글자 이상입니다.");
         }
     }
+
+    public boolean isAuthor(String userId) {
+        return this.author.getUserId().equals(userId);
+    }
 }

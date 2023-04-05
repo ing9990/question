@@ -1,5 +1,7 @@
 package com.question.question.application;
 
+import com.question.auth.domain.InvalidAuthenticationException;
+import com.question.question.io.request.UpdateDetailRequest;
 import com.question.question.io.response.QuestionAndAnswersResponse;
 import com.question.question.io.response.QuestionResponse;
 import com.question.question.domain.QuestionNotFoundException;
@@ -49,5 +51,29 @@ public class QuestionService {
         return questionRepository.findAll(pageable)
                 .stream().map(QuestionResponse::of)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateDetail(Long questionId, String userId, String detail) {
+        var question = questionRepository.findById(questionId)
+                .orElseThrow(QuestionNotFoundException::new);
+
+        if (question.isAuthor(userId)) {
+            throw new InvalidAuthenticationException();
+        }
+
+        question.updateDetail(detail);
+    }
+
+    @Transactional
+    public void deleteQuestion(Long questionId, String userId) {
+        var question = questionRepository.findById(questionId)
+                .orElseThrow(QuestionNotFoundException::new);
+
+        if (question.isAuthor(userId)) {
+            throw new InvalidAuthenticationException();
+        }
+
+        questionRepository.deleteById(questionId);
     }
 }

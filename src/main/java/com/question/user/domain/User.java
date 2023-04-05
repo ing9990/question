@@ -1,9 +1,12 @@
 package com.question.user.domain;
 
 import com.question.commons.BaseTimeEntity;
+import com.question.question.domain.Question;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -37,12 +40,23 @@ public class User extends BaseTimeEntity {
     @Column(name = "user_status", nullable = false)
     private UserStatus userStatus;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uesr_watchlist")
+    private Set<Question> watchlist;
+
     public void active() {
         this.userStatus = UserStatus.ACTIVE;
     }
 
     public void inactive() {
         this.userStatus = UserStatus.INACTIVE;
+    }
+
+    public void addWatchlist(final Question question) {
+        if (this.watchlist == null) {
+            this.watchlist = new HashSet<>();
+        }
+        this.watchlist.add(question);
     }
 
     public void updateUsername(final String username) {
@@ -68,6 +82,7 @@ public class User extends BaseTimeEntity {
         this.userStatus = UserStatus.ACTIVE;
         this.password = password;
         this.profileImageUrl = profileImageUrl == null || "".equals(profileImageUrl) ? defaultProfileImage : profileImageUrl;
+        this.watchlist = Set.of();
     }
 
     public User(final String username,

@@ -6,6 +6,7 @@ import com.question.infra.in.aop.support.CurrentUser;
 import com.question.question.application.QuestionService;
 import com.question.question.domain.Question;
 import com.question.question.io.request.CreateQuestionRequest;
+import com.question.question.io.request.UpdateDetailRequest;
 import com.question.question.io.response.QuestionAndAnswersResponse;
 import com.question.question.io.response.QuestionResponse;
 import lombok.RequiredArgsConstructor;
@@ -79,5 +80,24 @@ public class QuestionApi {
                 createQuestionRequest.getDetail()
         );
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PatchMapping("/{questionId}")
+    public ResponseEntity<Void> updateDetail(
+            @Valid @RequestBody UpdateDetailRequest updateDetailRequest,
+            @PathVariable Long questionId,
+            @CurrentUser String userId
+    ) {
+        questionService.updateDetail(questionId, userId, updateDetailRequest.getDetail());
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping("/{questionId}")
+    public ResponseEntity<Void> deleteQuestion(
+            @PathVariable Long questionId,
+            @CurrentUser String userId
+    ) {
+        questionService.deleteQuestion(questionId, userId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
