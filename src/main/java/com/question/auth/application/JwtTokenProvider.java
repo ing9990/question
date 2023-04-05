@@ -63,9 +63,20 @@ public class JwtTokenProvider implements TokenProvider {
             claims.getBody()
                     .getExpiration()
                     .before(new Date());
-        }catch(final JwtException | IllegalArgumentException e){
+        } catch (final JwtException | IllegalArgumentException e) {
             throw new InvalidTokenException("권한이 없습니다.");
         }
+    }
+
+    @Override
+    public long getExpirationTimeForRefresh(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(refreshKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration()
+                .getTime();
     }
 
 

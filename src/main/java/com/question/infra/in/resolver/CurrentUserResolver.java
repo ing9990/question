@@ -35,8 +35,6 @@ public class CurrentUserResolver implements HandlerMethodArgumentResolver {
 
         String authorization = webRequest.getHeader(AUTHORIZTION_HEADER_NAME);
 
-        log.info("Authorization: " + authorization);
-
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             throw new InvalidAuthenticationException();
         }

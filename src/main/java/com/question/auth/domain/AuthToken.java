@@ -20,23 +20,36 @@ public class AuthToken extends BaseTimeEntity {
     private Long tokenId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false, unique = true)
     private User user;
 
     @Column(name = "refresh_token", nullable = false)
     private String refreshToken;
 
-    public void change(final String refreshToken) {
+    @Column(name = "expiration_time", nullable = false)
+    private long expirationTime;
+
+    public void change(final String oldRefreshToken,
+                       final String refreshToken,
+                       final long expirationTime
+    ) {
+        if (!Objects.equals(oldRefreshToken, this.refreshToken)) {
+            throw new InvalidAuthenticationException();
+        }
+
         if (!Objects.isNull(refreshToken)) {
             this.refreshToken = refreshToken;
+            this.expirationTime = expirationTime;
         }
     }
 
     public AuthToken(
             final User user,
-            final String refreshToken
+            final String refreshToken,
+            final long expirationTime
     ) {
         this.user = user;
         this.refreshToken = refreshToken;
+        this.expirationTime = expirationTime;
     }
 }

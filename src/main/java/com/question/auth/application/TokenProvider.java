@@ -8,4 +8,6 @@ public interface TokenProvider {
     String getPayload(final String token);
 
     void validateToken(final String token);
+
+    long getExpirationTimeForRefresh(String token);
 }

@@ -13,6 +13,7 @@ spring:
     properties:
       hibernate:
         format-sql: true
+    show-sql: true
 
   datasource:
     url: jdbc:mysql://localhost:3306/questiondb
