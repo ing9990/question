@@ -25,6 +25,7 @@ public class UserResponse {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .profileImageUrl(user.getProfileImageUrl())
+                .status(user.getUserStatus())
                 .build();
     }
 }

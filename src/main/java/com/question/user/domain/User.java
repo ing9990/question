@@ -2,7 +2,6 @@ package com.question.user.domain;
 
 import com.question.commons.BaseTimeEntity;
 import lombok.*;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -14,7 +13,8 @@ import java.util.regex.Pattern;
 @Table(name = "user")
 public class User extends BaseTimeEntity {
 
-    public static final Pattern USERNAME_PATTERN = Pattern.compile("^[A-Za-z]{5,}$");
+    public static final String defaultProfileImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Ckj7QlRb085_A62q7s7MlGzcQdaIIcfCQApCIvk&s";
+    public static final Pattern USERNAME_PATTERN = Pattern.compile("^[A-Za-z0-9]{5,}$");
     public static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$");
 
     @Id
@@ -65,9 +65,9 @@ public class User extends BaseTimeEntity {
         this.userId = UUID.randomUUID().toString();
         this.email = email;
         this.username = username;
-        this.profileImageUrl = profileImageUrl;
         this.userStatus = UserStatus.ACTIVE;
         this.password = password;
+        this.profileImageUrl = profileImageUrl == null || "".equals(profileImageUrl) ? defaultProfileImage : profileImageUrl;
     }
 
     public User(final String username,
@@ -75,7 +75,7 @@ public class User extends BaseTimeEntity {
                 final String profileImageUrl) {
         this.username = username;
         this.email = email;
-        this.profileImageUrl = profileImageUrl;
+        this.profileImageUrl = profileImageUrl == null || "".equals(profileImageUrl) ? defaultProfileImage : profileImageUrl;
     }
 
     private void validateUsername(final String username) {

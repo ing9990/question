@@ -26,14 +26,6 @@ public class RequestArgumentNotValidExceptionHandler {
                         .collect(Collectors.toList()), HttpStatus.BAD_REQUEST));
     }
 
-    @ExceptionHandler(InvalidAuthenticationException.class)
-    public ResponseEntity<ErrorResponse> handlerInvalidAuthentication(
-            final Exception exception
-    ) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(ErrorResponse.of(new Error(exception.getMessage())));
-    }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handlerUnexpectedException(
             final Exception exception

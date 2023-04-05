@@ -4,6 +4,7 @@ import com.question.auth.domain.InvalidAuthenticationException;
 import com.question.auth.application.AuthService;
 import com.question.infra.in.aop.support.CurrentUser;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class CurrentUserResolver implements HandlerMethodArgumentResolver {
 
     private final AuthService authService;
@@ -33,10 +35,12 @@ public class CurrentUserResolver implements HandlerMethodArgumentResolver {
 
         String authorization = webRequest.getHeader(AUTHORIZTION_HEADER_NAME);
 
-        if (authorization == null || authorization.isEmpty()) {
+        log.info("Authorization: " + authorization);
+
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
             throw new InvalidAuthenticationException();
         }
 
-        return authService.getUserIdFromToken(authorization);
+        return authService.getUserIdFromToken(authorization.substring(7));
     }
 }

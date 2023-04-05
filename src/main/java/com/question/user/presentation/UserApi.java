@@ -2,6 +2,7 @@ package com.question.user.presentation;
 
 import com.question.infra.in.aop.support.CurrentUser;
 import com.question.user.application.UserService;
+import com.question.user.domain.UserRepository;
 import com.question.user.io.request.SignUpRequest;
 import com.question.user.io.request.UserUpdateRequest;
 import com.question.user.io.response.UserResponse;
@@ -18,10 +19,12 @@ import javax.validation.Valid;
 public class UserApi {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
-    @CurrentUser
     @GetMapping
-    public ResponseEntity<UserResponse> findMe(final String userId) {
+    public ResponseEntity<UserResponse> findMe(@CurrentUser final String userId) {
+        System.out.println("userid: " + userId);
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userService.findById(userId));
     }

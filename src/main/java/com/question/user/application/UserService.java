@@ -36,8 +36,11 @@ public class UserService {
 
     @Transactional
     public void save(String username, String email, String password, String profileImageUrl) {
+        hasSameEamil(email);
+        hasSameUsername(username);
+
         var savedUser = userRepository.save(new User(username, email, encoder.encode(password), profileImageUrl));
-        
+
         publisher.publishEvent(new UserSavedEvent(this, savedUser.getUserId()));
     }
 
@@ -49,7 +52,7 @@ public class UserService {
 
     public void hasSameEamil(String email) {
         if (userRepository.findUserByEmail(email).isPresent()) {
-            throw new DuplicateEmailException(email);
+            throw new DuplicateEmailException();
         }
     }
 }

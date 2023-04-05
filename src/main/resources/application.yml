@@ -30,7 +30,6 @@ cors:
     method:
       GET, POST, PUT, DELETE, PATCH
 
-
 security:
   jwt:
     token:
@@ -41,3 +40,6 @@ security:
       expire-length: 25920000000
       secret-key: UXVlc3Rpb25TZXJ2aWNlQmFzZTY0RGVjb2RlS2V5UmVmcmVzaA==
 
+application:
+  user:
+    default-profile-image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Ckj7QlRb085_A62q7s7MlGzcQdaIIcfCQApCIvk&s
