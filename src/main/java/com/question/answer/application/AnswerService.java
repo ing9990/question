@@ -2,7 +2,6 @@ package com.question.answer.application;
 
 import com.question.answer.domain.Answer;
 import com.question.answer.domain.AnswerRepository;
-import com.question.answer.event.AnsweredEvent;
 import com.question.question.domain.QuestionNotFoundException;
 import com.question.question.domain.QuestionRepository;
 import com.question.user.domain.UserNotFoundException;
@@ -38,16 +37,16 @@ public class AnswerService {
 
         question.addAnswer(savedAnswer);
 
-        try {
-            publisher.publishEvent(new AnsweredEvent(this,
-                    answerer.getUserId(),
-                    answerer.getUsername(),
-                    question.getTitle(),
-                    answerer.getEmail(),
-                    question.getAuthor().getEmail()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            publisher.publishEvent(new AnsweredEvent(this,
+//                    answerer.getUserId(),
+//                    answerer.getUsername(),
+//                    question.getTitle(),
+//                    answerer.getEmail(),
+//                    question.getAuthor().getEmail()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 
