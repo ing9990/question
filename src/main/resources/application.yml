@@ -34,7 +34,7 @@ cors:
 security:
   jwt:
     token:
-      expire-length: 36000000
+      expire-length: 198000000
       secret-key: UXVlc3Rpb25TZXJ2aWNlQmFzZTY0RGVjb2RlS2V5
 
     refresh-token:
