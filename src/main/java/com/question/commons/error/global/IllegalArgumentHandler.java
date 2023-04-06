@@ -1,7 +1,7 @@
 package com.question.commons.error.global;
 
-import com.question.auth.domain.InvalidAuthenticationException;
-import io.jsonwebtoken.JwtException;
+import com.question.commons.error.dto.Error;
+import com.question.commons.error.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

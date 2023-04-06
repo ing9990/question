@@ -1,4 +1,4 @@
-package com.question.commons.error.global;
+package com.question.commons.error.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

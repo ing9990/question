@@ -1,5 +1,7 @@
 package com.question.commons.error.global;
 
+import com.question.commons.error.dto.Error;
+import com.question.commons.error.dto.ErrorResponse;
 import com.question.user.domain.DuplicateEmailException;
 import com.question.user.domain.DuplicateUsernameException;
 import org.springframework.http.HttpStatus;
