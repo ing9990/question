@@ -30,9 +30,7 @@ public class RequestArgumentNotValidExceptionHandler {
     public ResponseEntity<ErrorResponse> handlerUnexpectedException(
             final Exception exception
     ) {
-        System.out.println(exception.getMessage());
-
-        Error unExpectedError = new Error("예상하지 못한 서버 에러가 발생했습니다.");
+        Error unExpectedError = new Error(exception.getMessage());
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ErrorResponse.of(unExpectedError));

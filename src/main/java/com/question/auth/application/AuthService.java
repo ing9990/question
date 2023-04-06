@@ -100,4 +100,8 @@ public class AuthService {
 
         return new AccessTokenAndRefreshTokenResponse(newAccessToken, newRefreshToken);
     }
+
+    public void validateToken(String token) {
+        provider.validateToken(token);
+    }
 }

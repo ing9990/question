@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class AuthenticationExceptionHanlder {
+public class IllegalArgumentHandler {
 
-    @ExceptionHandler({InvalidAuthenticationException.class, JwtException.class})
+    @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity<ErrorResponse> handlerInvalidAuthentication(
             final Exception exception
     ) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(ErrorResponse.of(new Error(exception.getMessage())));
     }
+
 }

@@ -39,6 +39,7 @@ public class CurrentUserResolver implements HandlerMethodArgumentResolver {
             throw new InvalidAuthenticationException();
         }
 
+        authService.validateToken(authorization.substring(7));
         return authService.getUserIdFromToken(authorization.substring(7));
     }
 }
