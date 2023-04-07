@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 @Table(name = "user")
 public class User extends BaseTimeEntity {
 
-    public static final String defaultProfileImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Ckj7QlRb085_A62q7s7MlGzcQdaIIcfCQApCIvk&s";
+    public static final String DEFAULT_PROFILE_IMAGE = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Ckj7QlRb085_A62q7s7MlGzcQdaIIcfCQApCIvk&s";
     public static final Pattern USERNAME_PATTERN = Pattern.compile("^[A-Za-z0-9]{5,}$");
     public static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$");
 
@@ -81,7 +81,7 @@ public class User extends BaseTimeEntity {
         this.username = username;
         this.userStatus = UserStatus.ACTIVE;
         this.password = password;
-        this.profileImageUrl = profileImageUrl == null || "".equals(profileImageUrl) ? defaultProfileImage : profileImageUrl;
+        this.profileImageUrl = profileImageUrl == null || "".equals(profileImageUrl) ? DEFAULT_PROFILE_IMAGE : profileImageUrl;
         this.watchlist = Set.of();
     }
 
@@ -90,7 +90,7 @@ public class User extends BaseTimeEntity {
                 final String profileImageUrl) {
         this.username = username;
         this.email = email;
-        this.profileImageUrl = profileImageUrl == null || "".equals(profileImageUrl) ? defaultProfileImage : profileImageUrl;
+        this.profileImageUrl = profileImageUrl == null || "".equals(profileImageUrl) ? DEFAULT_PROFILE_IMAGE : profileImageUrl;
     }
 
     private void validateUsername(final String username) {

@@ -1,7 +1,6 @@
 package com.question.question.application;
 
 import com.question.auth.domain.InvalidAuthenticationException;
-import com.question.question.io.request.UpdateDetailRequest;
 import com.question.question.io.response.QuestionAndAnswersResponse;
 import com.question.question.io.response.QuestionResponse;
 import com.question.question.domain.QuestionNotFoundException;

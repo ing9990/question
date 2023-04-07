@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-public class QuestionTest {
-
+class QuestionTest {
 
     private String questionTitle = "블록체인 기업 면접 질문";
     private String questionDetail = "블록체인 기술의 '영지식증명'이 뭔가요?";
@@ -40,8 +39,8 @@ public class QuestionTest {
 
         question.addAnswer(answer);
 
-        assertThat(question.getAnswers().size()).isEqualTo(1);
-        assertThat(question.getAnswers().stream().findFirst().isPresent()).isTrue();
+        assertThat(question.getAnswers()).hasSize(1);
+        assertThat(question.getAnswers().stream().findFirst()).isPresent();
 
         Answer firstAnswer = question.getAnswers().get(0);
 
