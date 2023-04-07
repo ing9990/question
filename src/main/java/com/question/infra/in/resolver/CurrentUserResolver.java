@@ -1,10 +1,5 @@
 package com.question.infra.in.resolver;
 
-import com.question.auth.domain.InvalidAuthenticationException;
-import com.question.auth.application.AuthService;
-import com.question.infra.in.aop.support.CurrentUser;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -13,33 +8,44 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import com.question.auth.application.AuthService;
+import com.question.auth.domain.InvalidAuthenticationException;
+import com.question.infra.in.aop.support.CurrentUser;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class CurrentUserResolver implements HandlerMethodArgumentResolver {
 
-    private final AuthService authService;
+	private final AuthService authService;
 
-    public static final String AUTHORIZTION_HEADER_NAME = HttpHeaders.AUTHORIZATION;
+	public CurrentUserResolver(
+		final AuthService authService
+	) {
+		this.authService = authService;
+	}
 
-    @Override
-    public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(CurrentUser.class);
-    }
+	public static final String AUTHORIZTION_HEADER_NAME = HttpHeaders.AUTHORIZATION;
 
-    @Override
-    public String resolveArgument(MethodParameter parameter,
-                                  ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest,
-                                  WebDataBinderFactory binderFactory) throws Exception {
+	@Override
+	public boolean supportsParameter(MethodParameter parameter) {
+		return parameter.hasParameterAnnotation(CurrentUser.class);
+	}
 
-        String authorization = webRequest.getHeader(AUTHORIZTION_HEADER_NAME);
+	@Override
+	public String resolveArgument(MethodParameter parameter,
+		ModelAndViewContainer mavContainer,
+		NativeWebRequest webRequest,
+		WebDataBinderFactory binderFactory) throws Exception {
 
-        if (authorization == null || !authorization.startsWith("Bearer ")) {
-            throw new InvalidAuthenticationException();
-        }
+		String authorization = webRequest.getHeader(AUTHORIZTION_HEADER_NAME);
 
-        authService.validateToken(authorization.substring(7));
-        return authService.getUserIdFromToken(authorization.substring(7));
-    }
+		if (authorization == null || !authorization.startsWith("Bearer ")) {
+			throw new InvalidAuthenticationException();
+		}
+
+		authService.validateToken(authorization.substring(7));
+		return authService.getUserIdFromToken(authorization.substring(7));
+	}
 }

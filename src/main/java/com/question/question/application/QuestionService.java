@@ -1,78 +1,86 @@
 package com.question.question.application;
 
-import com.question.auth.domain.InvalidAuthenticationException;
-import com.question.question.io.response.QuestionAndAnswersResponse;
-import com.question.question.io.response.QuestionResponse;
-import com.question.question.domain.QuestionNotFoundException;
-import com.question.user.domain.UserNotFoundException;
-import com.question.question.domain.Question;
-import com.question.question.domain.QuestionRepository;
-import com.question.user.domain.UserRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.question.auth.domain.InvalidAuthenticationException;
+import com.question.question.domain.Question;
+import com.question.question.domain.QuestionNotFoundException;
+import com.question.question.domain.QuestionRepository;
+import com.question.question.io.response.QuestionAndAnswersResponse;
+import com.question.question.io.response.QuestionResponse;
+import com.question.user.domain.User;
+import com.question.user.domain.UserNotFoundException;
+import com.question.user.domain.UserRepository;
 
 @Service
-@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class QuestionService {
 
-    private final QuestionRepository questionRepository;
-    private final UserRepository userRepository;
+	private final QuestionRepository questionRepository;
+	private final UserRepository userRepository;
 
-    @Transactional
-    public void saveQuestion(final String userId, final String title, final String detail) {
-        var user = userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
+	public QuestionService(
+		final QuestionRepository questionRepository,
+		final UserRepository userRepository
+	) {
+		this.questionRepository = questionRepository;
+		this.userRepository = userRepository;
+	}
 
-        questionRepository.save(new Question(title, detail, user));
-    }
+	@Transactional
+	public void saveQuestion(final String userId, final String title, final String detail) {
+		User user = userRepository.findById(userId)
+			.orElseThrow(UserNotFoundException::new);
 
-    public QuestionResponse getQuestion(final Long questionId) {
-        return QuestionResponse.of(questionRepository.findById(questionId)
-                .orElseThrow(QuestionNotFoundException::new));
-    }
+		questionRepository.save(new Question(title, detail, user));
+	}
 
-    public QuestionAndAnswersResponse getQuestionAndAnswers(
-            final Long questionId
-    ) {
-        var question = questionRepository.findById(questionId)
-                .orElseThrow(QuestionNotFoundException::new);
+	public QuestionResponse getQuestion(final Long questionId) {
+		return QuestionResponse.of(questionRepository.findById(questionId)
+			.orElseThrow(QuestionNotFoundException::new));
+	}
 
-        return QuestionAndAnswersResponse.of(question);
-    }
+	public QuestionAndAnswersResponse getQuestionAndAnswers(
+		final Long questionId
+	) {
+		Question question = questionRepository.findById(questionId)
+			.orElseThrow(QuestionNotFoundException::new);
 
-    public List<QuestionResponse> getQuestions(Pageable pageable) {
-        return questionRepository.findAll(pageable)
-                .stream().map(QuestionResponse::of)
-                .collect(Collectors.toList());
-    }
+		return QuestionAndAnswersResponse.of(question);
+	}
 
-    @Transactional
-    public void updateDetail(Long questionId, String userId, String detail) {
-        var question = questionRepository.findById(questionId)
-                .orElseThrow(QuestionNotFoundException::new);
+	public List<QuestionResponse> getQuestions(Pageable pageable) {
+		return questionRepository.findAll(pageable)
+			.stream().map(QuestionResponse::of)
+			.collect(Collectors.toList());
+	}
 
-        if (question.isAuthor(userId)) {
-            throw new InvalidAuthenticationException();
-        }
+	@Transactional
+	public void updateDetail(Long questionId, String userId, String detail) {
+		Question question = questionRepository.findById(questionId)
+			.orElseThrow(QuestionNotFoundException::new);
 
-        question.updateDetail(detail);
-    }
+		if (question.isAuthor(userId)) {
+			throw new InvalidAuthenticationException();
+		}
 
-    @Transactional
-    public void deleteQuestion(Long questionId, String userId) {
-        var question = questionRepository.findById(questionId)
-                .orElseThrow(QuestionNotFoundException::new);
+		question.updateDetail(detail);
+	}
 
-        if (question.isAuthor(userId)) {
-            throw new InvalidAuthenticationException();
-        }
+	@Transactional
+	public void deleteQuestion(Long questionId, String userId) {
+		Question question = questionRepository.findById(questionId)
+			.orElseThrow(QuestionNotFoundException::new);
 
-        questionRepository.deleteById(questionId);
-    }
+		if (question.isAuthor(userId)) {
+			throw new InvalidAuthenticationException();
+		}
+
+		questionRepository.deleteById(questionId);
+	}
 }
