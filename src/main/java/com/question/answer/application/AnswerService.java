@@ -7,7 +7,6 @@ import com.question.question.domain.QuestionRepository;
 import com.question.user.domain.UserNotFoundException;
 import com.question.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class AnswerService {
 
-    private final ApplicationEventPublisher publisher;
     private final AnswerRepository answerRepository;
     private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
@@ -36,18 +34,5 @@ public class AnswerService {
         var savedAnswer = answerRepository.save(new Answer(question, answerer, answerTitle, answerContent));
 
         question.addAnswer(savedAnswer);
-
-//        try {
-//            publisher.publishEvent(new AnsweredEvent(this,
-//                    answerer.getUserId(),
-//                    answerer.getUsername(),
-//                    question.getTitle(),
-//                    answerer.getEmail(),
-//                    question.getAuthor().getEmail()));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
-
-
 }

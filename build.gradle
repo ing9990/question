@@ -2,11 +2,37 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.10'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id "org.sonarqube" version "4.0.0.2929"
 }
+
+apply plugin: 'org.sonarqube'
+apply plugin: 'jacoco'
 
 group = 'com'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+// SonarQube 플러그인 설정
+// 토큰 sqp_1b86578e941c263850c0c828a9cb5037f38a08b4
+sonarqube {
+    properties {
+        property 'sonar.projectName', 'question'
+        property 'sonar.projectKey', 'question'
+        property 'sonar.host.url', 'http://localhost:9000'
+        property 'sonar.token',  'sqp_2e6d9746a2ce469e91cdb87f0043e03964ee01a1'
+        property "sonar.language", "java"
+        property "sonar.sourceEncoding", "UTF-8"
+        property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    }
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled true
+        xml.enabled true
+        csv.enabled false
+    }
+}
 
 configurations {
     compileOnly {

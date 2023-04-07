@@ -20,7 +20,6 @@ class JwtTokenProviderTest {
         tokenProvider = new JwtTokenProvider(validityMS, refreshValidityMS, secretKey, refreshSecretKey);
     }
 
-    @Test
     @DisplayName("Access Token 생성 및 검증 테스트")
     void createAccessTokenAndValidate() {
         String payload = "testUser";

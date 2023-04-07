@@ -10,10 +10,6 @@ import java.util.Optional;
 @Repository
 public interface JwtTokenRepository extends JpaRepository<AuthToken, Long> {
 
-    @Query("select o from AuthToken o where o.user.userId = ?1")
-    AuthToken getOAuthTokenByUser_UserId(String userId);
-
-
     @Query("select a from AuthToken a where a.user.userId = ?1")
     Optional<AuthToken> findOAuthTokenByUser_UserId(String userId);
 
