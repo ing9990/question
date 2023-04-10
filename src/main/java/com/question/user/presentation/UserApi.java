@@ -36,7 +36,7 @@ public class UserApi {
 
 	@PostMapping
 	public ResponseEntity<Void> singUp(
-		@RequestBody @Valid SignUpRequest signUpRequest
+		@Valid @RequestBody final SignUpRequest signUpRequest
 	) {
 		userService.save(
 			signUpRequest.getUsername(),
@@ -48,11 +48,10 @@ public class UserApi {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@CurrentUser
 	@PatchMapping
 	public ResponseEntity<Void> updateUsername(
 		@Valid @RequestBody final UserUpdateRequest request,
-		final String userId
+		@CurrentUser final String userId
 	) {
 		userService.updateUsername(userId, request);
 

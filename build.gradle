@@ -9,7 +9,7 @@ apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 
 group = 'com'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 // SonarQube 플러그인 설정
@@ -19,7 +19,7 @@ sonarqube {
         property 'sonar.projectName', 'question'
         property 'sonar.projectKey', 'question'
         property 'sonar.host.url', 'http://localhost:9000'
-        property 'sonar.token',  'sqp_2e6d9746a2ce469e91cdb87f0043e03964ee01a1'
+        property 'sonar.token', 'sqp_2e6d9746a2ce469e91cdb87f0043e03964ee01a1'
         property "sonar.language", "java"
         property "sonar.sourceEncoding", "UTF-8"
         property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
@@ -49,9 +49,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+
     implementation 'com.google.guava:guava:31.1-jre'
 
+    // jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 

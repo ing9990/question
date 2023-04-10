@@ -1,7 +1,5 @@
 package com.question.user.domain;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -9,14 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.question.commons.BaseTimeEntity;
-import com.question.question.domain.Question;
 
 @Entity
 @Table(name = "user")
@@ -30,13 +24,13 @@ public class User extends BaseTimeEntity {
 	@Column(name = "user_id", nullable = false)
 	private String userId;
 
-	@Column(name = "email", nullable = false, updatable = false)
+	@Column(name = "login_email", nullable = false, updatable = false)
 	private String email;
 
 	@Column(name = "username", nullable = false)
 	private String username;
 
-	@Column(name = "password", nullable = false)
+	@Column(name = "login_password", nullable = false)
 	private String password;
 
 	@Column(name = "profile_image_url", length = 1000)
@@ -45,10 +39,6 @@ public class User extends BaseTimeEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "user_status", nullable = false)
 	private UserStatus userStatus;
-
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "uesr_watchlist")
-	private Set<Question> watchlist;
 
 	protected User() {
 	}
@@ -59,13 +49,6 @@ public class User extends BaseTimeEntity {
 
 	public void inactive() {
 		this.userStatus = UserStatus.INACTIVE;
-	}
-
-	public void addWatchlist(final Question question) {
-		if (this.watchlist == null) {
-			this.watchlist = new HashSet<>();
-		}
-		this.watchlist.add(question);
 	}
 
 	public void updateUsername(final String username) {
@@ -92,7 +75,6 @@ public class User extends BaseTimeEntity {
 		this.password = password;
 		this.profileImageUrl =
 			profileImageUrl == null || "".equals(profileImageUrl) ? DEFAULT_PROFILE_IMAGE : profileImageUrl;
-		this.watchlist = Set.of();
 	}
 
 	public User(final String username,
@@ -138,9 +120,5 @@ public class User extends BaseTimeEntity {
 
 	public UserStatus getUserStatus() {
 		return this.userStatus;
-	}
-
-	public Set<Question> getWatchlist() {
-		return this.watchlist;
 	}
 }
