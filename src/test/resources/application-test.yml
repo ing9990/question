@@ -3,17 +3,26 @@ server:
 
 spring:
   jpa:
+    open-in-view: false
+    generate-ddl: true
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    open-in-view: false
+    properties:
+      hibernate:
+        format-sql: true
+    show-sql: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/questiontestdb
+    url: jdbc:mysql://localhost:3306/questiondb
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
 
 cors:
   allow-origins:
@@ -22,13 +31,16 @@ cors:
     method:
       GET, POST, PUT, DELETE, PATCH
 
-
 security:
   jwt:
     token:
-      expire-length: 3600
-      secret-key: UXVlc3Rpb25TZXJ2aWNlQmFzZTY0RGVjb2RlS2V5
-    refresh-token:
-      expire-length: 25920000000
+      expire-length: 198000000
       secret-key: UXVlc3Rpb25TZXJ2aWNlQmFzZTY0RGVjb2RlS2V5
 
+    refresh-token:
+      expire-length: 25920000000
+      secret-key: UXVlc3Rpb25TZXJ2aWNlQmFzZTY0RGVjb2RlS2V5UmVmcmVzaA==
+
+application:
+  user:
+    default-profile-image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Ckj7QlRb085_A62q7s7MlGzcQdaIIcfCQApCIvk&s

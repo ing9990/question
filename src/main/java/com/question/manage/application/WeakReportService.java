@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.question.manage.domain.ReportType;
 import com.question.user.io.response.UserResponse;
 
 // 신고 3회 중첩 시 경고 5회 중첩 시 정지
@@ -18,5 +19,10 @@ public class WeakReportService implements ReportService {
 	@Override
 	public List<UserResponse> getSubject2Notifications() {
 		return null;
+	}
+
+	@Override
+	public void report(String whistleBlowerId, String reportedUserId, String reason, ReportType reportType) {
+
 	}
 }
