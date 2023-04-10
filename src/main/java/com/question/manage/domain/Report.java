@@ -51,7 +51,8 @@ public class Report extends BaseTimeEntity {
 	public Report(
 		final User whistleBlower,
 		final User reported,
-		final String reason
+		final String reason,
+		final ReportType reportType
 	) {
 		validateUser(whistleBlower, reported);
 		validateReason(reason);
@@ -61,6 +62,7 @@ public class Report extends BaseTimeEntity {
 
 		this.reason = reason;
 		this.reflect = Reflect.WAIT;
+		this.reportType = reportType;
 	}
 
 	private void validateUser(User whistleBlower, User reported) {
