@@ -1,6 +1,9 @@
 FROM openjdk:11
-RUN mkdir /app
+
+USER root
+RUN apt-get update
+RUN curl -sSL https://get.docker.com/ | sh
+
 WORKDIR /app
 COPY . /app
-RUN ./gradlew clean build --stacktrace
-ENTRYPOINT ["./gradlew", "bootRun"]
+RUN ./gradlew clean build
