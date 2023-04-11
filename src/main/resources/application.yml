@@ -2,6 +2,15 @@ server:
   port: 8080
 
 spring:
+  mail:
+    host:
+    port: 25
+    username: username
+    password: password
+    properties:
+      auth: true
+      starttls:
+        enable: true
   jpa:
     open-in-view: false
     generate-ddl: true
@@ -10,10 +19,10 @@ spring:
       ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    properties:
-      hibernate:
-        format-sql: true
-    show-sql: true
+  #    properties:
+  #      hibernate:
+  #        format-sql: true
+  #    show-sql: true
 
   datasource:
     url: jdbc:mysql://localhost:3306/questiondb
@@ -44,3 +53,4 @@ security:
 application:
   user:
     default-profile-image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Ckj7QlRb085_A62q7s7MlGzcQdaIIcfCQApCIvk&s
+

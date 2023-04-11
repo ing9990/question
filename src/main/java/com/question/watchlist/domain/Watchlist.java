@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -40,7 +40,7 @@ public class Watchlist extends BaseTimeEntity {
 	@Column(name = "watchlist_description")
 	private String description;
 
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name = "watchlist_contents",
 		joinColumns = @JoinColumn(name = "watchlist_id", nullable = false, updatable = false),
 		inverseJoinColumns = @JoinColumn(name = "question_id", nullable = false)
@@ -77,6 +77,14 @@ public class Watchlist extends BaseTimeEntity {
 		validationQuestion(question);
 
 		this.questionList.add(question);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	private void validationQuestion(

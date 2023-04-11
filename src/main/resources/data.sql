@@ -14,8 +14,9 @@ values ('userid3', now(), now(), 'test3@test.com', 'password3', 'image3', 'ACTIV
 
 insert into user(user_id, created_time, modified_time, login_email, login_password, profile_image_url, user_status,
                  username)
-values ('userid4', now(), now(), 'test4@test.com', '$2a$10$omBpft4efLF7SYaQ7XHuruBcw8KDUlWcsu3fD7ndKsfBUIv22JxVS',
-        'image4', 'ACTIVE', 'testuser4');
+values ('userid4', now(), now(), 'mail80782258@gmail.com',
+        '$2a$10$omBpft4efLF7SYaQ7XHuruBcw8KDUlWcsu3fD7ndKsfBUIv22JxVS',
+        'image4', 'ACTIVE', '김태우');
 
 insert into question(question_id, created_time, modified_time, question_detail, question_title, question_author)
 values (null, now(), now(), 'TCP와 UDP의 차이를 알려주세요!!', 'TCP와 UDP의 차이', 'userid1');
@@ -52,6 +53,14 @@ insert into watchlist(watchlist_id, created_time, modified_time, watchlist_descr
                       watchlist_creator_id)
 values (null, now(), now(), '게임에 대한 관심목록입니다.', '게임 관심목록', 'userid3');
 
+insert into watchlist(watchlist_id, created_time, modified_time, watchlist_description, watchlist_name,
+                      watchlist_creator_id)
+values (null, now(), now(), '테스트용 관심목록입니다.', '테스트 관심목록', 'userid4');
+
+insert into watchlist(watchlist_id, created_time, modified_time, watchlist_description, watchlist_name,
+                      watchlist_creator_id)
+values (null, now(), now(), '테스트용 관심목록입니다.2', '테스트 관심목록2', 'userid4');
+
 insert into watchlist_contents(watchlist_id, question_id)
 values (1, 1);
 
@@ -60,3 +69,18 @@ values (2, 2);
 
 insert into watchlist_contents(watchlist_id, question_id)
 values (3, 3);
+
+insert into watchlist_contents(watchlist_id, question_id)
+values (4, 1);
+
+insert into watchlist_contents(watchlist_id, question_id)
+values (4, 3);
+
+insert into watchlist_contents(watchlist_id, question_id)
+values (5, 1);
+
+insert into watchlist_contents(watchlist_id, question_id)
+values (5, 2);
+
+insert into watchlist_contents(watchlist_id, question_id)
+values (5, 3);

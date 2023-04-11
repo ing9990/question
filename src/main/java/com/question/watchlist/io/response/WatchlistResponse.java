@@ -21,12 +21,18 @@ public class WatchlistResponse {
 
 	private String creatorName;
 
+	private String watchListName;
+
+	private String watchListDescription;
+
 	private List<QuestionResponse> questionList;
 
 	public static WatchlistResponse from(final Watchlist watchlist) {
 		return WatchlistResponse.builder()
 			.creatorId(watchlist.getCreator().getUserId())
 			.creatorName(watchlist.getCreator().getUsername())
+			.watchListName(watchlist.getName())
+			.watchListDescription(watchlist.getDescription())
 			.questionList(watchlist.getQuestionList()
 				.stream().map(QuestionResponse::of)
 				.collect(Collectors.toList()))
