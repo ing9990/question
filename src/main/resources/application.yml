@@ -1,12 +1,22 @@
 server:
   port: 8080
 
+manage:
+  report:
+    stack:
+      weak:
+        notification: 3
+        sanctions: 5
+      strong:
+        notification: 1
+        sanctions: 5
+
 spring:
   mail:
-    host:
-    port: 25
-    username: username
-    password: password
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
     properties:
       auth: true
       starttls:

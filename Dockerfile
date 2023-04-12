@@ -1,9 +1,10 @@
-FROM openjdk:11
-
-USER root
-RUN apt-get update
-RUN curl -sSL https://get.docker.com/ | sh
+#FROM openjdk:11
+FROM adoptopenjdk:11
 
 WORKDIR /app
 COPY . /app
-RUN ./gradlew clean build
+EXPOSE 80 8080
+RUN ./gradlew test
+#RUN ./gradlew sonar
+#RUN ./gradlew clean build
+CMD ["nohup ","java", "-jar", "question-0.0.1.jar"]

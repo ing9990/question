@@ -77,16 +77,20 @@ public class Report extends BaseTimeEntity {
 		}
 	}
 
+	public Reflect getReflect() {
+		return reflect;
+	}
+
+	public ReportType getReportType() {
+		return reportType;
+	}
+
 	public Long getReportId() {
 		return reportId;
 	}
 
 	public String getReason() {
 		return reason;
-	}
-
-	public User getWhistleBlower() {
-		return whistleBlower;
 	}
 
 	public User getReported() {

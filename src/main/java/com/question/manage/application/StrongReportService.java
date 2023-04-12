@@ -2,6 +2,7 @@ package com.question.manage.application;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,6 @@ import com.question.manage.domain.ReportType;
 import com.question.user.domain.User;
 import com.question.user.domain.UserNotFoundException;
 import com.question.user.domain.UserRepository;
-import com.question.user.io.response.UserResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,14 +24,20 @@ public class StrongReportService implements ReportService {
 	private final ReportRepository reportRepository;
 	private final UserRepository userRepository;
 
+	@Value("${manage.report.stack.strong.notification}")
+	private Integer notificationStack;
+
+	@Value("${manage.report.stack.strong.sanctions}")
+	private Integer sanctionsStack;
+
 	@Override
-	public List<UserResponse> getSubject2Sanctions() {
-		return null;
+	public List<Report> getSubject2Sanctions() {
+		return reportRepository.getSubject2Sanctions(sanctionsStack);
 	}
 
 	@Override
-	public List<UserResponse> getSubject2Notifications() {
-		return null;
+	public List<Report> getSubject2Notifications() {
+		return reportRepository.getSubject2Sanctions(notificationStack);
 	}
 
 	@Override
