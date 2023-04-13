@@ -7,4 +7,4 @@ EXPOSE 80 8080
 RUN ./gradlew test
 #RUN ./gradlew sonar
 #RUN ./gradlew clean build
-CMD ["nohup ","java", "-jar", "question-0.0.1.jar"]
+CMD ["nohup","java", "-jar", "question-0.0.1.jar"]

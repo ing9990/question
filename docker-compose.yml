@@ -1,6 +1,7 @@
 version: '3'
 services:
   app:
+    container_name: question
     build: .
     ports:
       - "8080:8080"
@@ -10,12 +11,12 @@ services:
       - mysql
 
   sonarqube:
-    platform: linux/amd64
+    container_name: sonar
     image: sonarqube:latest
     ports:
       - "9000:9000"
-
   mysql:
+    container_name: mysql
     platform: linux/amd64
     image: mysql:5.7
     ports:
