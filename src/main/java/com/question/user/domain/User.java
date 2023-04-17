@@ -40,33 +40,25 @@ public class User extends BaseTimeEntity {
 	@Column(name = "user_status", nullable = false)
 	private UserStatus userStatus;
 
+	public static User userWithAllArgs(
+		final String username,
+		final String email,
+		final String password,
+		final String profileImageUrl
+	) {
+		return new User(username, email, password, profileImageUrl);
+	}
+
 	protected User() {
 	}
 
-	public void active() {
-		this.userStatus = UserStatus.ACTIVE;
-	}
-
-	public void inactive() {
-		this.userStatus = UserStatus.INACTIVE;
-	}
-
-	public void updateUsername(final String username) {
-		validateUsername(username);
-		this.username = username;
-	}
-
-	public void updatePassword(final String password) {
-		this.password = password;
-	}
-
-	public User(final String username,
+	protected User(final String username,
 		final String email,
 		final String password,
 		final String profileImageUrl) {
 
-		validateEmail(email);
 		validateUsername(username);
+		validateEmail(email);
 
 		this.userId = UUID.randomUUID().toString();
 		this.email = email;
@@ -77,11 +69,16 @@ public class User extends BaseTimeEntity {
 			profileImageUrl == null || "".equals(profileImageUrl) ? DEFAULT_PROFILE_IMAGE : profileImageUrl;
 	}
 
-	public User(final String username,
+	protected User(final String username,
 		final String email,
 		final String profileImageUrl) {
+
+		validateUsername(username);
+		validateUsername(email);
+
 		this.username = username;
 		this.email = email;
+		this.userStatus = UserStatus.ACTIVE;
 		this.profileImageUrl =
 			profileImageUrl == null || "".equals(profileImageUrl) ? DEFAULT_PROFILE_IMAGE : profileImageUrl;
 	}
@@ -90,6 +87,11 @@ public class User extends BaseTimeEntity {
 		if (!USERNAME_PATTERN.matcher(username).find()) {
 			throw new IllegalArgumentException("닉네임은 특수문자가 포함되거나 5글자 보다 적을 수 없습니다.");
 		}
+	}
+
+	public void updateUsername(final String username) {
+		validateUsername(username);
+		this.username = username;
 	}
 
 	private void validateEmail(final String email) {

@@ -53,7 +53,7 @@ public class UserApi {
 		@Valid @RequestBody final UserUpdateRequest request,
 		@CurrentUser final String userId
 	) {
-		userService.updateUsername(userId, request);
+		userService.updateUsername(userId, request.getUsername());
 
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
