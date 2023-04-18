@@ -13,13 +13,19 @@ public class CreateUserAdapter implements CreateUserPort {
 	private final UserRepository userRepository;
 	private final PasswordEncoder encoder;
 
-	public CreateUserAdapter(UserRepository userRepository, PasswordEncoder encoder) {
+	public CreateUserAdapter(
+		final UserRepository userRepository,
+		final PasswordEncoder encoder
+	) {
 		this.userRepository = userRepository;
 		this.encoder = encoder;
 	}
 
 	@Override
-	public void createUser(String username, String email, String password, String profileImageUrl) {
+	public void createUser(final String username,
+		final String email,
+		final String password,
+		final String profileImageUrl) {
 		userRepository.save(User.userWithAllArgs(username, email, encoder.encode(password), profileImageUrl));
 	}
 }
