@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.question.commons.BaseResponse;
 import com.question.infra.in.aop.support.CurrentUser;
 import com.question.question.application.QuestionService;
-import com.question.question.io.request.CreateQuestionRequest;
-import com.question.question.io.request.UpdateDetailRequest;
+import com.question.question.presentation.io.request.CreateQuestionRequest;
+import com.question.question.presentation.io.request.UpdateDetailRequest;
 
 @RestController
 @RequestMapping("/api/questions")

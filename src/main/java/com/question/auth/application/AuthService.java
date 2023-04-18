@@ -11,7 +11,7 @@ import com.question.auth.domain.AuthToken;
 import com.question.auth.domain.AuthUser;
 import com.question.auth.domain.InvalidAuthenticationException;
 import com.question.auth.domain.JwtTokenRepository;
-import com.question.auth.io.response.AccessTokenAndRefreshTokenResponse;
+import com.question.auth.presentation.io.response.AccessTokenAndRefreshTokenResponse;
 import com.question.user.domain.User;
 import com.question.user.domain.UserNotFoundException;
 import com.question.user.domain.UserRepository;

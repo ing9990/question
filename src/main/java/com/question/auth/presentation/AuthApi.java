@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.question.auth.application.AuthService;
 import com.question.auth.domain.AuthUser;
-import com.question.auth.io.request.LoginRequest;
-import com.question.auth.io.request.RefreshTokenRenewRequest;
-import com.question.auth.io.response.AccessTokenAndRefreshTokenResponse;
+import com.question.auth.presentation.io.request.LoginRequest;
+import com.question.auth.presentation.io.request.RefreshTokenRenewRequest;
+import com.question.auth.presentation.io.response.AccessTokenAndRefreshTokenResponse;
 import com.question.infra.in.aop.support.CurrentUser;
 
 @RestController

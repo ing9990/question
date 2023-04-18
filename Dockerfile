@@ -3,8 +3,10 @@ FROM adoptopenjdk:11
 
 WORKDIR /app
 COPY . /app
-EXPOSE 80 8080
+
 RUN ./gradlew test
-#RUN ./gradlew sonar
-#RUN ./gradlew clean build
-CMD ["nohup","java", "-jar", "question-0.0.1.jar"]
+RUN ./gradlew clean build
+
+EXPOSE 80 8080
+
+CMD ["java", "-jar", "app/build/libs/question-0.0.1.jar"]

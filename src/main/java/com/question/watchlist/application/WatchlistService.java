@@ -20,7 +20,7 @@ import com.question.user.domain.UserRepository;
 import com.question.watchlist.domain.Watchlist;
 import com.question.watchlist.domain.WatchlistNotFoundException;
 import com.question.watchlist.domain.WatchlistRepository;
-import com.question.watchlist.io.response.WatchlistResponse;
+import com.question.watchlist.presentation.io.response.WatchlistResponse;
 
 @Service
 @Transactional(readOnly = true)

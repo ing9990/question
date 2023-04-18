@@ -1,0 +1,58 @@
+server:
+  port: 8080
+
+manage:
+  report:
+    stack:
+      weak:
+        notification: 3
+        sanctions: 5
+      strong:
+        notification: 1
+        sanctions: 5
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+    properties:
+      auth: true
+      starttls:
+        enable: true
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/questiondb
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+cors:
+  allow-origins:
+    urls:
+      http://localhost:3000
+    method:
+      GET, POST, PUT, DELETE, PATCH
+
+security:
+  jwt:
+    token:
+      expire-length: 198000000
+      secret-key: UXVlc3Rpb25TZXJ2aWNlQmFzZTY0RGVjb2RlS2V5
+
+    refresh-token:
+      expire-length: 25920000000
+      secret-key: UXVlc3Rpb25TZXJ2aWNlQmFzZTY0RGVjb2RlS2V5UmVmcmVzaA==
+
+application:
+  user:
+    default-profile-image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Ckj7QlRb085_A62q7s7MlGzcQdaIIcfCQApCIvk&s
+

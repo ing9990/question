@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.question.commons.BaseResponse;
 import com.question.infra.in.aop.support.CurrentUser;
 import com.question.watchlist.application.WatchlistService;
-import com.question.watchlist.io.request.MakeWatchlistRequest;
-import com.question.watchlist.io.response.WatchlistResponse;
+import com.question.watchlist.presentation.io.request.MakeWatchlistRequest;
+import com.question.watchlist.presentation.io.response.WatchlistResponse;
 
 @RestController
 @RequestMapping("/api/watchlists")
@@ -43,6 +43,7 @@ public class WatchlistApi {
 
 	/**
 	 * 새로운 관심목록을 만듭니다.
+	 *
 	 * @param userId
 	 * @return
 	 */
@@ -58,6 +59,7 @@ public class WatchlistApi {
 
 	/**
 	 * 관심목록에 질문을 추가합니다.
+	 *
 	 * @param questionId
 	 * @param userId
 	 * @return

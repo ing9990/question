@@ -1,29 +1,46 @@
 version: '3'
+
 services:
   app:
     container_name: question
-    build: .
+    build:
+      dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
     restart: always
     depends_on:
-      - sonarqube
       - mysql
 
   sonarqube:
+    restart: always
     container_name: sonar
     image: sonarqube:latest
     ports:
       - "9000:9000"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:mysql://mysql:3306/your_mysql_database?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance
+      - SONARQUBE_JDBC_USERNAME=root
+      - SONARQUBE_JDBC_PASSWORD=
+    volumes:
+      - ./sonarqube_data:/opt/sonarqube/data
+      - ./sonarqube_extensions:/opt/sonarqube/extensions
+      - ./sonarqube_logs:/opt/sonarqube/logs
+      - ./sonarqube_temp:/opt/sonarqube/temp
+
   mysql:
+    build:
+      dockerfile: ./Dockerfile-mysql
+      context: .
     container_name: mysql
     platform: linux/amd64
     image: mysql:5.7
     ports:
       - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_ROOT_PASSWORD=
       - MYSQL_DATABASE=questiondb
       - MYSQL_URL=jdbc:mysql://localhost:3306
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=
+      - MYSQL_USER=question_user
+      - MYSQL_PASSWORD=1234

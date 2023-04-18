@@ -1,71 +1,50 @@
 package com.question.user.application;
 
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.question.user.domain.DuplicateEmailException;
-import com.question.user.domain.DuplicateUsernameException;
-import com.question.user.domain.User;
-import com.question.user.domain.UserNotFoundException;
-import com.question.user.domain.UserRepository;
 import com.question.user.event.UserSavedEvent;
-import com.question.user.io.request.UserUpdateRequest;
-import com.question.user.io.response.UserResponse;
+import com.question.user.ports.CreateUserPort;
+import com.question.user.ports.GetUserPort;
+import com.question.user.ports.UpdateUserPort;
+import com.question.user.presentation.io.response.UserResponse;
 
 @Service
 @Transactional(readOnly = true)
 public class UserService {
 
 	private final ApplicationEventPublisher publisher;
-	private final PasswordEncoder encoder;
-	private final UserRepository userRepository;
+	private final CreateUserPort createUserPort;
+	private final GetUserPort getUserPort;
+	private final UpdateUserPort updateUserPort;
 
 	public UserService(
 		final ApplicationEventPublisher publisher,
-		final PasswordEncoder encoder,
-		final UserRepository userRepository
-	) {
-		this.publisher = publisher;
-		this.encoder = encoder;
-		this.userRepository = userRepository;
-	}
+		final CreateUserPort createUserPort,
+		final GetUserPort getUserPort,
+		final UpdateUserPort updateUserPort) {
 
-	public UserResponse findById(final String id) {
-		return UserResponse.of(userRepository.findById(id)
-			.orElseThrow(UserNotFoundException::new));
+		this.publisher = publisher;
+		this.createUserPort = createUserPort;
+		this.getUserPort = getUserPort;
+		this.updateUserPort = updateUserPort;
 	}
 
 	@Transactional
-	public void updateUsername(final String id, final UserUpdateRequest request) {
-		hasSameUsername(request.getUsername());
+	public UserResponse findById(final String id) {
+		return getUserPort.getUserPort(id);
+	}
 
-		User user = userRepository.findById(id)
-			.orElseThrow(UserNotFoundException::new);
-
-		user.updateUsername(request.getUsername());
+	@Transactional
+	public void updateUsername(final String id, final String username) {
+		updateUserPort.updateUser(id, username);
 	}
 
 	@Transactional
 	public void save(String username, String email, String password, String profileImageUrl) {
-		hasSameEamil(email);
-		hasSameUsername(username);
+		createUserPort.createUser(username, email, password, profileImageUrl);
 
-		User savedUser = userRepository.save(new User(username, email, encoder.encode(password), profileImageUrl));
-
-		publisher.publishEvent(new UserSavedEvent(this, savedUser.getUserId()));
-	}
-
-	private void hasSameUsername(String username) {
-		if (userRepository.findUserByUsername(username).isPresent()) {
-			throw new DuplicateUsernameException();
-		}
-	}
-
-	public void hasSameEamil(String email) {
-		if (userRepository.findUserByEmail(email).isPresent()) {
-			throw new DuplicateEmailException();
-		}
+		publisher.publishEvent(new UserSavedEvent(this, username));
 	}
 }

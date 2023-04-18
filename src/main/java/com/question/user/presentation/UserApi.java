@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.question.infra.in.aop.support.CurrentUser;
 import com.question.user.application.UserService;
-import com.question.user.io.request.SignUpRequest;
-import com.question.user.io.request.UserUpdateRequest;
-import com.question.user.io.response.UserResponse;
+import com.question.user.presentation.io.request.SignUpRequest;
+import com.question.user.presentation.io.request.UserUpdateRequest;
+import com.question.user.presentation.io.response.UserResponse;
 
 @RestController
 @RequestMapping("/api/users")

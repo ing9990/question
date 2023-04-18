@@ -24,7 +24,7 @@ public class UpdateUserAdapter implements UpdateUserPort {
 		try {
 			user.updateUsername(username);
 		} catch (Exception e) {
-			throw new DuplicateUsernameException(username + "은 중복된 닉네임입니다.");
+			throw new DuplicateUsernameException("중복된 닉네임입니다.");
 		}
 	}
 }

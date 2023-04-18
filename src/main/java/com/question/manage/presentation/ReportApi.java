@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.question.infra.in.aop.support.CurrentUser;
 import com.question.manage.application.ReportService;
-import com.question.manage.io.request.ReportRequest;
+import com.question.manage.presentation.io.request.ReportRequest;
 
 @RestController
 @RequestMapping("/api/report")

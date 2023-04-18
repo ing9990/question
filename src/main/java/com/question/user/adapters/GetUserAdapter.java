@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 
 import com.question.user.domain.UserNotFoundException;
 import com.question.user.domain.UserRepository;
-import com.question.user.io.response.UserResponse;
 import com.question.user.ports.GetUserPort;
+import com.question.user.presentation.io.response.UserResponse;
 
 @Service
 public class GetUserAdapter implements GetUserPort {
