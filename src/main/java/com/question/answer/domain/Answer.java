@@ -52,14 +52,6 @@ public class Answer extends BaseTimeEntity {
 		this.content = content;
 	}
 
-	public Answer(Long answerId, Question question, User answerer, String title, String content) {
-		this.answerId = answerId;
-		this.question = question;
-		this.answerer = answerer;
-		this.title = title;
-		this.content = content;
-	}
-
 	protected Answer() {
 	}
 
