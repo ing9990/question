@@ -38,6 +38,9 @@ spring:
     init:
       data-locations: classpath:db/mysql/data.sql
 
+  main:
+    allow-bean-definition-overriding: true
+    
 cors:
   allow-origins:
     urls:

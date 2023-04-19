@@ -11,7 +11,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.question.question.domain.Question;
+import com.question.question.domain.QuestionRepository;
 import com.question.user.domain.User;
+import com.question.user.domain.UserRepository;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -20,6 +22,12 @@ public class AnswerRepositoryTest {
 
 	@Autowired
 	private AnswerRepository answerRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private QuestionRepository questionRepository;
 
 	private Question question;
 
@@ -46,6 +54,10 @@ public class AnswerRepositoryTest {
 
 		question = new Question("테스트 질문 제목입니다.", "테스트 질문글입니다.", author);
 		answer = new Answer(question, answerer, title, content);
+
+		userRepository.save(author);
+		userRepository.save(answerer);
+		questionRepository.save(question);
 	}
 
 	@Test
