@@ -34,8 +34,16 @@ public class AnswerRepositoryTest {
 
 	@BeforeEach
 	public void setUp() {
-		author = new User("testAuthor", "question.author@test.com", "test_password", "test_image.png");
-		answerer = new User("testAnswerer", "question.answerer2@test.com", "test_password", "test_answerer.png");
+		author = User.userWithAllArgs("testAuthor",
+			"question.author@test.com",
+			"test_password",
+			"test_image.png");
+
+		answerer = User.userWithAllArgs("testAnswerer",
+			"question.answerer2@test.com",
+			"test_password",
+			"test_answerer.png");
+
 		question = new Question("테스트 질문 제목입니다.", "테스트 질문글입니다.", author);
 		answer = new Answer(question, answerer, title, content);
 	}

@@ -19,7 +19,7 @@ class QuestionTest {
 
 	@BeforeEach
 	public void each() {
-		author = new User("blockchain",
+		author = User.userWithAllArgs("blockchain",
 			"blockchain@gmail.com",
 			"testpassword",
 			"https://testimage/image.png");
@@ -55,7 +55,7 @@ class QuestionTest {
 		// given
 		String title = "테스트 질문 제목";
 		String detail = "테스트 질문 내용";
-		User author = new User("testuser", "test_user@test.com", "test_password", "https://helloworld.png");
+		User author = User.userWithAllArgs("testuser", "test_user@test.com", "test_password", "https://helloworld.png");
 
 		// when
 		Question question = Question.builder()
@@ -96,7 +96,7 @@ class QuestionTest {
 	@Test
 	void returnTrueIfSameAuthor() {
 		//given
-		User user = new User("username", "email@email.com", "password", "");
+		User user = User.userWithAllArgs("username", "email@email.com", "password", "");
 		Question question = given("test-title", "test-detail", user);
 
 		assertThat(question.isAuthor(user.getUserId())).isTrue();

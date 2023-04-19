@@ -15,13 +15,13 @@ import lombok.Getter;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseTimeEntity {
+abstract public class BaseTimeEntity {
 
 	@CreatedDate
 	@Column(name = "created_time", updatable = false, nullable = false)
 	protected LocalDateTime createdTime;
 
 	@LastModifiedDate
-	@Column(name = "modified_time", updatable = true, nullable = false)
+	@Column(name = "modified_time", nullable = false)
 	protected LocalDateTime modifiedTime;
 }
