@@ -16,7 +16,12 @@ class JwtTokenProviderTest {
     private TokenProvider tokenProvider;
 
     @BeforeEach
-    void setUp(@Value("${security.jwt.token.expire-length}") long validityMS, @Value("${security.jwt.refresh-token.expire-length}") long refreshValidityMS, @Value("${security.jwt.token.secret-key}") String secretKey, @Value("${security.jwt.refresh-token.secret-key}") String refreshSecretKey) {
+    void setUp(
+        @Value("${security.jwt.token.expire-length}") long validityMS,
+        @Value("${security.jwt.refresh-token.expire-length}") long refreshValidityMS,
+        @Value("${security.jwt.token.secret-key}") String secretKey,
+        @Value("${security.jwt.refresh-token.secret-key}") String refreshSecretKey) {
+
         tokenProvider = new JwtTokenProvider(validityMS, refreshValidityMS, secretKey, refreshSecretKey);
     }
 

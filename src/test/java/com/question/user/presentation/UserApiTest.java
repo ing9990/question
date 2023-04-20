@@ -40,7 +40,10 @@ class UserApiTest {
 	@Test
 	void findMe() throws Exception {
 		//given
-		User user1 = User.userWithAllArgs("username", "email@email.com", "password!!", "https://profiles/image.png");
+		User testUser = User.userWithAllArgs("username",
+			"email@email.com",
+			"password!!",
+			"https://profiles/image.png");
 
 		// when and then
 		ResultActions perform = mockMvc.perform(
