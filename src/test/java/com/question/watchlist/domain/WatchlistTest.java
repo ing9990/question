@@ -26,7 +26,7 @@ class WatchlistTest {
 	Question question;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		MockitoAnnotations.openMocks(this);
 
 		questionTitle = "Docker에 관한 질문";
@@ -34,6 +34,13 @@ class WatchlistTest {
 
 		watchlist = new Watchlist(mockUser, "Test Watchlist", "Test Watchlist Description");
 		question = new Question(questionTitle, questionDetail, mockUser);
+
+		long heapMaxSize = Runtime.getRuntime().maxMemory();
+		long haepFreeSize = Runtime.getRuntime().freeMemory();
+		long totalMemory = Runtime.getRuntime().totalMemory();
+
+		System.out.printf("heapMaxSize: %s\nheapFreeSize: %s\ntotalMemory: %s\n\n", heapMaxSize, haepFreeSize,
+			totalMemory);
 	}
 
 	@Test
